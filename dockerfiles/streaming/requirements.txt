@@ -1,0 +1,7 @@
+confluent-kafka==2.6.1
+grpcio==1.68.1
+grpcio-tools==1.68.1
+pandas==2.2.3
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+boto3

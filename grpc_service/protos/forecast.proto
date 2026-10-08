@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package gout.forecast;
+
+service Forecast {
+  rpc Predict (PredictRequest) returns (PredictResponse);
+  rpc PredictBatch (BatchRequest) returns (BatchResponse);
+  rpc Reload (Empty) returns (ReloadResponse);
+}
+
+message Empty {}
+
+message PredictRequest {
+  string fecha = 1;         // YYYY-MM-DD
+  string sucursal = 2;      // S01..S09
+  string sku = 3;           // P001..
+  int32 stock = 4;          // informado por la sucursal al pedir
+  int32 devoluciones = 5;
+}
+
+message PredictResponse {
+  string fecha = 1;
+  string sucursal = 2;
+  string sku = 3;
+  int32 unidades = 4;
+  string modelo_version = 5;
+}
+
+message BatchItem {
+  string sku = 1;
+  int32 stock = 2;
+  int32 devoluciones = 3;
+}
+
+message BatchRequest {
+  string fecha = 1;
+  string sucursal = 2;
+  repeated BatchItem items = 3;
+}
+
+message BatchResponse {
+  repeated PredictResponse predicciones = 1;
+}
+
+message ReloadResponse {
+  string modelo_version = 1;
+}

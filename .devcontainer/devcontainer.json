@@ -1,0 +1,14 @@
+{
+  "name": "gout-mlops",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "hostRequirements": { "cpus": 4, "memory": "16gb", "storage": "32gb" },
+  "postCreateCommand": "test -f .env || (cp .env.example .env && sed -i \"s/^AIRFLOW_UID=.*/AIRFLOW_UID=$(id -u)/\" .env)",
+  "forwardPorts": [8080, 5005, 9001, 8800, 50051],
+  "portsAttributes": {
+    "8080": { "label": "Airflow" },
+    "5005": { "label": "MLflow" },
+    "9001": { "label": "MinIO consola" },
+    "8800": { "label": "API REST + GraphQL" },
+    "50051": { "label": "gRPC", "onAutoForward": "silent" }
+  }
+}
